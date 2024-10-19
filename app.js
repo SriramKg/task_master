@@ -10,8 +10,10 @@ app.use(express.json());
 dotenv.config();
 
 const userRoutes = require("./routes/users.routes");
+const taskRoutes = require("./routes/tasks.routes");
 
 app.use("/users", userRoutes);
+app.use("/tasks", taskRoutes);
 
 const connectionString = process.env.MONGO_URI;
 const db = process.env.DB_NAME;
