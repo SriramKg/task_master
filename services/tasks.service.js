@@ -102,4 +102,45 @@ async function updateTaskDetails(req) {
     }
 }
 
-module.exports = { createNewTask, getAssignedTasksForUser, updateTaskDetails };
+async function getAllTasks(req) {
+    try {
+        let tasks;
+        const status = req.query.status;
+        const search = req.query.search;
+        if (search) {
+            tasks = await taskModel.find({ $or: [{ taskName: { $regex: search, $options: "i" } }, { description: { $regex: search, $options: "i" } }] });
+        }
+        else if (status) {
+            tasks = await taskModel.find({ status });
+        }
+        else {
+            tasks = await taskModel.find();
+        }
+        if (!tasks) {
+            return {
+                message: "No tasks found",
+                status: 404,
+            };
+        }
+        return {
+            message: "Tasks fetched successfully",
+            status: 200,
+            tasks: [
+                tasks.map((task) => {
+                    return {
+                        taskName: task.taskName,
+                        description: task.description,
+                        status: task.status,
+                        dueDate: task.dueDate,
+                        priority: task.priority,
+                        assignedTo: task.assignedTo,
+                    };
+                }),
+              ],
+        };
+    } catch (error) {
+        throw new Error("Error in fetching tasks ! " + error);
+    }
+}
+
+module.exports = { createNewTask, getAssignedTasksForUser, updateTaskDetails, getAllTasks };
