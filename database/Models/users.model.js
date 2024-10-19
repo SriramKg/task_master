@@ -73,6 +73,12 @@ const userSchema = new Schema({
     enum: ["ScrumMaster", "ProductOwner", "Developer", "QA", "User"],
     default: "User",
   },
+  tasksAssigned: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Task",
+    },
+  ],
 });
 
 const userModel = mongoose.model("user", userSchema);

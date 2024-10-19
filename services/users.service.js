@@ -1,11 +1,12 @@
 const userModel = require("../database/Models/users.model");
+const taskModel = require("../database/Models/tasks.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 async function registerNewUser(body) {
   try {
-    const { username, email, password, profileInfo } = body;
-    if (!username || !email || !password || !profileInfo) {
+    const { username, email, password, profileInfo, role } = body;
+    if (!username || !email || !password || !profileInfo || !role){ 
       return {
         message: "Please provide all required fields",
         status: 400,
@@ -24,6 +25,7 @@ async function registerNewUser(body) {
       email,
       password: hashedPassword,
       profileInfo,
+      role,
     });
     await newUser.save();
     return {
@@ -69,6 +71,7 @@ async function loginAUser(body) {
         email: findUser.email,
         username: findUser.username,
         profileInfo: findUser.profileInfo,
+        role: findUser.role,
       };
       const token = jwt.sign(payload, secret, { expiresIn: "2h" });
       return {
