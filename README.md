@@ -3,11 +3,28 @@
 
 The Task Tracker API provides endpoints for managing users, tasks, comments, and teams. This document provides detailed explanations, request structures, and response formats for each endpoint.
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+    - [User Management](#user-management)
+        - [Register a New User](#register-a-new-user)
+        - [Login a User](#login-a-user)
+        - [Update User Profile](#update-user-profile)
+    - [Task Management](#task-management)
+        - [Create New Task](#create-new-task)
+        - [Update Task Details](#update-task-details)
+    - [Team Management](#team-management)
+        - [Create a New Team](#create-a-new-team)
+- [Error Handling](#error-handling)
+- [Authorization](#authorization)
+- [Postman Collection](#postman-collection)
+
 ## Getting Started
 
 1. Clone the repository and navigate to the project directory.
-2. Install dependencies.
-3. Start the server, ensuring it runs on `http://localhost:8080`.
+2. Install dependencies using `npm install`.
+3. Start the server with `npm start`, ensuring it runs on `http://localhost:8080`.
 
 ---
 
@@ -26,26 +43,26 @@ The Task Tracker API provides endpoints for managing users, tasks, comments, and
 - **URL**: `/users/register`
 - **Method**: POST
 - **Request Body**:
-    ```json
-    {
-      "username": "Sriram",
-      "email": "kgsriram99@gmail.com",
-      "password": "Sriram@218",
-      "role": "ScrumMaster",
-      "profileInfo": [{
-        "firstName": "Sriram",
-        "lastName": "Gopinath",
-        "bio": "I'm a Software Engineer by profession and cricketer by passion.",
-        "dob": "1999-08-21",
-        "gender": "Male",
-        "experience": "4.1 years",
-        "designation": "Software Developer 1"
-      }]
-    }
-    ```
+        ```json
+        {
+            "username": "Sriram",
+            "email": "kgsriram99@gmail.com",
+            "password": "Sriram@218",
+            "role": "ScrumMaster",
+            "profileInfo": [{
+                "firstName": "Sriram",
+                "lastName": "Gopinath",
+                "bio": "I'm a Software Engineer by profession and cricketer by passion.",
+                "dob": "1999-08-21",
+                "gender": "Male",
+                "experience": "4.1 years",
+                "designation": "Software Developer 1"
+            }]
+        }
+        ```
 - **Response**:
-  - **Success**: 201 Created
-  - **Error**: 400 Bad Request (if required fields are missing)
+    - **Success**: 201 Created
+    - **Error**: 400 Bad Request (if required fields are missing)
 
 ---
 
@@ -53,15 +70,15 @@ The Task Tracker API provides endpoints for managing users, tasks, comments, and
 - **URL**: `/users/login`
 - **Method**: POST
 - **Request Body**:
-    ```json
-    {
-      "email": "manasa@tcs.com",
-      "password": "manasa@deva"
-    }
-    ```
+        ```json
+        {
+            "email": "manasa@tcs.com",
+            "password": "manasa@deva"
+        }
+        ```
 - **Response**:
-  - **Success**: 200 OK, returns JWT token
-  - **Error**: 401 Unauthorized (if credentials are incorrect)
+    - **Success**: 200 OK, returns JWT token
+    - **Error**: 401 Unauthorized (if credentials are incorrect)
 
 ---
 
@@ -69,27 +86,27 @@ The Task Tracker API provides endpoints for managing users, tasks, comments, and
 - **URL**: `/users/update`
 - **Method**: PUT
 - **Headers**: 
-  - `Authorization`: Bearer `<token>`
+    - `Authorization`: Bearer `<token>`
 - **Request Body**:
-    ```json
-    {
-      "email": "kgsriram99@gmail.com",
-      "profileInfo": [
+        ```json
         {
-          "firstName": "Sriram",
-          "lastName": "Gopinath",
-          "bio": "I'm a Software Engineer by profession and cricketer by passion.",
-          "dob": "1999-08-21",
-          "gender": "Male",
-          "experience": "4.1 years",
-          "designation": "Software Developer 1"
+            "email": "kgsriram99@gmail.com",
+            "profileInfo": [
+                {
+                    "firstName": "Sriram",
+                    "lastName": "Gopinath",
+                    "bio": "I'm a Software Engineer by profession and cricketer by passion.",
+                    "dob": "1999-08-21",
+                    "gender": "Male",
+                    "experience": "4.1 years",
+                    "designation": "Software Developer 1"
+                }
+            ]
         }
-      ]
-    }
-    ```
+        ```
 - **Response**:
-  - **Success**: 200 OK
-  - **Error**: 401 Unauthorized (if token is invalid)
+    - **Success**: 200 OK
+    - **Error**: 401 Unauthorized (if token is invalid)
 
 ---
 
@@ -108,40 +125,40 @@ The Task Tracker API provides endpoints for managing users, tasks, comments, and
 - **URL**: `/tasks/create`
 - **Method**: POST
 - **Headers**: 
-  - `Authorization`: Bearer `<token>`
+    - `Authorization`: Bearer `<token>`
 - **Request Body**:
-    ```json
-    {
-      "taskname": "Show DiscountLevel in Cart",
-      "description": "Display discount levels in Cart page",
-      "dueDate": "2024-09-26",
-      "priority": "High",
-      "status": "Not Started"
-    }
-    ```
+        ```json
+        {
+            "taskname": "Show DiscountLevel in Cart",
+            "description": "Display discount levels in Cart page",
+            "dueDate": "2024-09-26",
+            "priority": "High",
+            "status": "Not Started"
+        }
+        ```
 - **Response**:
-  - **Success**: 201 Created
-  - **Error**: 400 Bad Request (missing fields)
+    - **Success**: 201 Created
+    - **Error**: 400 Bad Request (missing fields)
 
 #### Update Task Details
 - **URL**: `/tasks/update/:id`
 - **Method**: PUT
 - **Headers**: 
-  - `Authorization`: Bearer `<token>`
+    - `Authorization`: Bearer `<token>`
 - **Request Body**:
-    ```json
-    {
-      "taskName": "Task 3",
-      "description": "Assign a task to another team member.",
-      "status": "In Progress",
-      "priority": "Medium",
-      "dueDate": "2024-10-20",
-      "assignedTo": "anitha@tcs.com"
-    }
-    ```
+        ```json
+        {
+            "taskName": "Task 3",
+            "description": "Assign a task to another team member.",
+            "status": "In Progress",
+            "priority": "Medium",
+            "dueDate": "2024-10-20",
+            "assignedTo": "anitha@tcs.com"
+        }
+        ```
 - **Response**:
-  - **Success**: 200 OK
-  - **Error**: 404 Not Found (if task ID not found)
+    - **Success**: 200 OK
+    - **Error**: 404 Not Found (if task ID not found)
 
 ---
 
@@ -155,17 +172,17 @@ The Task Tracker API provides endpoints for managing users, tasks, comments, and
 - **URL**: `/teams/createTeam`
 - **Method**: POST
 - **Headers**:
-  - `Authorization`: Bearer `<token>`
+    - `Authorization`: Bearer `<token>`
 - **Request Body**:
-    ```json
-    {
-      "name": "team purple",
-      "members": ["kgsriram99@gmail.com", "anitha@tcs.com"]
-    }
-    ```
+        ```json
+        {
+            "name": "team purple",
+            "members": ["kgsriram99@gmail.com", "anitha@tcs.com"]
+        }
+        ```
 - **Response**:
-  - **Success**: 201 Created
-  - **Error**: 400 Bad Request (if required fields are missing)
+    - **Success**: 201 Created
+    - **Error**: 400 Bad Request (if required fields are missing)
 
 ---
 
