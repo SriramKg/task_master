@@ -1,4 +1,5 @@
 const { createNewTask, getAssignedTasksForUser, updateTaskDetails, getAllTasks } = require("../services/tasks.service");
+const { createNewTaskComment, createNewTaskAttachment } = require("../services/comments.service");
 
 async function createTask(req, res) {
     try {
@@ -54,4 +55,31 @@ async function getTasks(req, res) {
     }
 }
 
-module.exports = { createTask, getAssignedTasks, updateTask, getTasks };
+async function createTaskComment(req, res) {
+    try {
+        const { message, status } = await createNewTaskComment(req);
+        res.status(status).send({
+            message,
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: "Internal Server Error " + error.message,
+        });
+    }
+}
+
+async function createTaskAttachment(req, res) {
+    try {
+        console.log("Im in controller");
+        const { message, status } = await createNewTaskAttachment(req);
+        res.status(status).send({
+            message,
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: "Internal Server Error " + error.message,
+        });
+    }
+}
+
+module.exports = { createTask, getAssignedTasks, updateTask, getTasks, createTaskComment, createTaskAttachment };

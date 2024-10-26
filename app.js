@@ -11,9 +11,11 @@ dotenv.config();
 
 const userRoutes = require("./routes/users.routes");
 const taskRoutes = require("./routes/tasks.routes");
+const teamRoutes = require("./routes/team.routes");
 
 app.use("/users", userRoutes);
 app.use("/tasks", taskRoutes);
+app.use("/teams", teamRoutes);
 
 const connectionString = process.env.MONGO_URI;
 const db = process.env.DB_NAME;

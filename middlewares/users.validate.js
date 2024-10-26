@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
+const blacklist = new Set();
 
 async function validateUser(req, res, next) {
+  req.blacklist = blacklist;
   const secret = process.env.JWT_SECRET;
   if (!req.headers.authorization) {
     return res.status(401).send({
@@ -10,7 +12,13 @@ async function validateUser(req, res, next) {
     const token = req.headers.authorization.split(" ")[1];
     if (!token) {
       return res.status(401).json({ message: "You are Unauthorized" });
-    } else {
+    } 
+    else if (blacklist.has(token)) {
+      return res.status(401).send({
+        message: "You are Unauthorized! Token Expired. Please login again",
+      });
+    }
+    else {
       jwt.verify(token, secret, (err, decoded) => {
         if (err) {
           return res.status(401).send({
@@ -24,4 +32,6 @@ async function validateUser(req, res, next) {
     }
   }
 }
+
+
 module.exports = validateUser;
