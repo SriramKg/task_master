@@ -209,6 +209,6 @@ Pass the JWT token in the `Authorization` header as shown below:
 Authorization: Bearer <token>
 ```
 
-## Postman Collection
+## Postman Collection Link
 
 For further testing, please refer to the [Postman Collection](https://warped-capsule-415893.postman.co/workspace/New-Team-Workspace~f157aff2-2606-47bc-b3d7-06e9756e22af/collection/36964876-d7f0c61c-9a7d-4254-b4ad-c5bc895ea255) for sample requests and responses.
